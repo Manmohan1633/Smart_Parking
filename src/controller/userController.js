@@ -18,10 +18,11 @@ exports.login = async (req, res) => {
             res.json({ message: "User not found" });
             return;
         }
-
-        const passwordMatch = await bcrypt.compare(req.body.password, userData.password);
-
-        if (passwordMatch && req.body.role == userData.role) {
+        console.log("Entered password:", req.body.password);
+        console.log("Stored hashed password:", userData.password);
+        //const passwordMatch = await bcrypt.compare(req.body.password, userData.password);
+        //if (passwordMatch && req.body.role == userData.role)
+        if (req.body.password === userData.password && req.body.role === userData.role) {
 
             const apptoken = jwt.sign({ userId: userData.id }, 'xxxxxxxxxxxxxxx', { expiresIn: '1h' });
 
